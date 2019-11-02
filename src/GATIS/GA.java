@@ -314,17 +314,13 @@ public class GA {
 	
 	public static void main(String[]args) throws Exception {
 		GA a = new GA();
-		
-		
-		
-		
 		for(int i = 0 ; i < 10 ; i++) {
-			Image img = new Image("C:/Users/Lucas C Mendes/Documents/JAVA/GATIS/src/GATIS/img2.jpg");
+			Image img = new Image("C:/Users/USER/Desktop/Trab IA e LP/GATIS-GeneticAlgorithymForThermographSegmentation/src/GATIS/img2.jpg");
 			a.lessQual(img);
 			img.convertToRGB();
 			a.run(img);
 			pop.get(POP-1).draw(img);
-			img.exportImage("C:/Users/Lucas C Mendes/Documents/JAVA/GATIS/src/GATIS/asd"+i+".jpg", "jpg");
+			img.exportImage("C:/Users/USER/Desktop/Trab IA e LP/GATIS-GeneticAlgorithymForThermographSegmentation/src/GATIS/asd"+i+".jpg", "jpg");
 			
 			System.out.print("Ga : "+i);
 			System.out.println(" | Melhor Fitness : "+pop.get(POP-1).getScore());
