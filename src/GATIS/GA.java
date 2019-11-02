@@ -20,6 +20,7 @@ public class GA {
 	static ArrayList<Individual> pop = new ArrayList<Individual>();
 	
 	
+	
 	void initPop(Image img) {
 		pop.clear();
 		for(int i = 0 ; i < POP ; i++) {
@@ -215,14 +216,14 @@ public class GA {
 		int x2 ;
 		Individual a1=null;
 		Individual a2=null;
-		while(a1 == null) {
+		
 			x1 = r.nextInt(POP-1);
 			a1 = pop.get(x1);
-		}
-		while(a2 == null) {
+		
+		
 			x2 = r.nextInt(POP-1);
 			a2 = pop.get(x2);
-		}
+		
 		if(a1.getScore() >= a2.getScore())			
 			return a1;
 		else
@@ -268,6 +269,8 @@ public class GA {
 		Individual[] children = new Individual[2];
 		ArrayList<Individual> popAux = new ArrayList<Individual>(POP);
 		while(n < GEN) {
+			
+			popAux.clear();
 			
 			int t=0;	
 			elite = pop.get(0);
@@ -317,13 +320,13 @@ public class GA {
 	
 	public static void main(String[]args) throws Exception {
 		GA a = new GA();
-		for(int i = 0 ; i < 10 ; i++) {
-			Image img = new Image("C:/Users/USER/Desktop/Trab IA e LP/GATIS-GeneticAlgorithymForThermographSegmentation/src/GATIS/img2.jpg");
+		for(int i = 0 ; i < 20 ; i++) {
+			Image img = new Image("C:/Users/USER/Desktop/Trab IA e LP/GATIS-GeneticAlgorithymForThermographSegmentation/src/GATIS/img3.jpg");
 			a.lessQual(img);
 			img.convertToRGB();
 			a.run(img);
 			pop.get(POP-1).draw(img);
-			img.exportImage("C:/Users/USER/Desktop/Trab IA e LP/GATIS-GeneticAlgorithymForThermographSegmentation/src/GATIS/asd"+i+".jpg", "jpg");
+			img.exportImage("C:/Users/USER/Desktop/Trab IA e LP/GATIS-GeneticAlgorithymForThermographSegmentation/src/GATIS/doenteasd"+i+".jpg", "jpg");
 			
 			System.out.print("Ga : "+i);
 			System.out.println(" | Melhor Fitness : "+pop.get(POP-1).getScore());
