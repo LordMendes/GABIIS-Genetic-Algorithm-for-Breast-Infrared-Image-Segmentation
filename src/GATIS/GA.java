@@ -10,8 +10,8 @@ import image.Image;
 public class GA {
 	//CONSTANTS
 	final int decimalArraySize = 10;
-	final static int POP = 40;
-	final int GEN = 40;
+	final static int POP = 50;
+	final int GEN = 50;
 	final float mR = 0.02f;
 	final float cR = 0.7f;
 	//ATTRIBUTES
@@ -271,13 +271,16 @@ public class GA {
 			
 			int t=0;	
 			elite = pop.get(0);
-			while(t <= (POP/2)) {
+			while(t <= (POP/2-1)) {
 
 				
 				m = r.nextFloat();
 				c = r.nextFloat();
 				a1 = tournament();
 				a2 = tournament();
+				
+				children[0] = a1;
+				children[1] = a2;
 				
 				if(c < cR) {
 					children = crossover(a1,a2,img);
