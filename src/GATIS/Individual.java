@@ -25,7 +25,7 @@ public class Individual implements Comparable<Object>{
 	Color RED = new Color(255, 0, 0);
 	Color GREEN = new Color(0, 255, 0);
 	Color BLUE = new Color(0, 0, 255);
-	
+	Color ORANGE= new Color(200,200,0);
 	
 	//METHODS
 	
@@ -84,9 +84,9 @@ public class Individual implements Comparable<Object>{
 				//WEIGHT-C:  -100          50                     100                   -100
 				//WEIGHT-R:
 				int bw = -250;
-				int sw = 50;
-				int hw = 250;
-				int ww = -275;
+				int sw = 20;
+				int hw = 240;
+				int ww = -305;
 				int wt = bw+sw+hw+ww;
 				
 				int bwR =  250;
@@ -95,17 +95,11 @@ public class Individual implements Comparable<Object>{
 				int wwR =  275;
 				int wtR = bwR+swR+hwR+wwR;
 				
-				int interw;		
 				int[] vol = new int[4];
 				
 				vol = getPixelVol(img);
 				
-				int inter = interceptVol(img);
 				
-				if(inter > 50) 
-					interw = -50;
-				else
-					interw = 10;
 
 				int b = vol[0]; 
 				int s = vol[1];
@@ -113,9 +107,9 @@ public class Individual implements Comparable<Object>{
 				int w = vol[3];
 							
 				
-				int totalC = (bw*b+sw*s+hw*h+ww*w+interw*inter);
+				int totalC = (bw*b+sw*s+hw*h+ww*w);
 				
-				score = (totalC)/Math.abs(wt+interw);	
+				score = (totalC)/Math.abs(wt+wtR);	
 		
 	}
 	
@@ -280,7 +274,7 @@ public class Individual implements Comparable<Object>{
 		for(int i = 0 ; i < h-1; i++) {
 			for(int j = 0 ; j < w-1 ; j++) {
 				if(this.containsR2(j,i))
-					img.setPixel(j,i,BLUE);
+					img.setPixel(j,i,ORANGE);
 				if(this.containsL1(j,i))
 					img.setPixel(j,i,RED);
 				
