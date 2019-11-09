@@ -15,8 +15,8 @@ public class Individual implements Comparable<Object>{
 	Circle c1;
 	Circle c2;
 	
-	//Circle c3;
-	//Circle c4;
+	Circle c3;
+	Circle c4;
 	
 	double score;
 	
@@ -39,7 +39,7 @@ public class Individual implements Comparable<Object>{
 		//System.out.println("Raio 1 : "+rr);
 		
 		c1 = new Circle(x,y,rr);
-		//c3 = new Circle(x,y,rr+10);
+		c3 = new Circle(x,y,rr+10);
 		
 		x=(int)(r.nextFloat()*img.getWidth());
 		y=(int)(r.nextFloat()*img.getHeight());
@@ -47,7 +47,7 @@ public class Individual implements Comparable<Object>{
 		
 		//System.out.println("Raio 2 : "+rr);
 		c2 = new Circle(x,y,rr);
-		//c4 = new Circle(x,y,rr+10);
+		c4 = new Circle(x,y,rr+10);
 		//System.out.print("raio no c : "+c2.getRadius());
 		fitness(img);
 
@@ -55,9 +55,9 @@ public class Individual implements Comparable<Object>{
 	
 	Individual(Circle l , Circle r, Image img){ // constructor using circles as parameters
 		c1 = l;
-		//c3 =new Circle(c1.getX(),c1.getY(),c1.getRadius()+10);
+		c3 =new Circle(c1.getX(),c1.getY(),c1.getRadius()+10);
 		c2 = r;
-		//c4 =new Circle(c2.getX(),c2.getY(),c2.getRadius()+10);
+		c4 =new Circle(c2.getX(),c2.getY(),c2.getRadius()+10);
 		fitness(img);
 	}
 	
@@ -89,27 +89,44 @@ public class Individual implements Comparable<Object>{
 				int ww = -305;
 				int wt = bw+sw+hw+ww;
 				
-				int bwR =  250;
+				int bwR =  420;
 				int swR = -20;
 				int hwR = -10;
 				int wwR =  275;
 				int wtR = bwR+swR+hwR+wwR;
 				
+				
 				int[] vol = new int[4];
+				int[] volR = new int[4];
 				
 				vol = getPixelVol(img);
+				volR =getPixelVolRings(img);
 				
 				
+				int inter = interceptVolRing(img);
+				
+				
+				int interW = 50;
+				
+				int inter2 = interceptVol(img);
+				
+				int interW2 = -100;
+
 
 				int b = vol[0]; 
 				int s = vol[1];
 				int h = vol[2];
 				int w = vol[3];
 							
+				int bR = volR[0]; 
+				int sR = volR[1];
+				int hR = volR[2];
+				int wR = volR[3];
 				
 				int totalC = (bw*b+sw*s+hw*h+ww*w);
+				int totalR= (bwR*bR+swR*sR+hwR*hR+wwR*wR);
 				
-				score = (totalC)/Math.abs(wt+wtR);	
+				score = (totalC)+(totalR)+(inter*interW)+(inter2*interW2)/Math.abs(wt+wtR+interW+interW2);	
 		
 	}
 	
@@ -128,7 +145,7 @@ public class Individual implements Comparable<Object>{
 	}
 	
 	int interceptVol(Image img) {
-			
+		
 		int sum = 0 ;
 		
 		for(int i = 0 ; i < img.getHeight(); i++) {  //using the "for" structures to run by the image as 
@@ -136,6 +153,21 @@ public class Individual implements Comparable<Object>{
 			for(int j = 0 ; j < img.getWidth(); j++) {
 				
 				if(intercept(j,i))					//verify if the coordinates are intercepted inside the two circles 
+					sum++;
+			}
+		}
+		return sum;
+	}
+	
+	int interceptVolRing(Image img) {
+			
+		int sum = 0 ;
+		
+		for(int i = 0 ; i < img.getHeight(); i++) {  //using the "for" structures to run by the image as 
+													//"i" and "j" being the pixel coordinates.
+			for(int j = 0 ; j < img.getWidth(); j++) {
+				
+				if(intercept(j,i)&&LeftRing(j,i)&&RigthRing(j,i))					//verify if the coordinates are intercepted inside the two circles 
 					sum++;
 			}
 		}
@@ -167,7 +199,7 @@ public class Individual implements Comparable<Object>{
 		return sum;
 	}
 	
-	/*int[] getPixelVolRings(Image img) {
+	int[] getPixelVolRings(Image img) {
 		
 		int[] sum= new int[4];
 		double pix;
@@ -190,7 +222,7 @@ public class Individual implements Comparable<Object>{
 		}
 		
 		return sum;
-	}*/
+	}
   
 	Boolean contains(int x, int y) {
 		
@@ -217,7 +249,7 @@ public class Individual implements Comparable<Object>{
 			return false;
 	}
 	
-	/*Boolean containsL3(int x, int y) {
+	Boolean containsL3(int x, int y) {
 		
 		int rad3 = c3.getRadius()*c3.getRadius();									   // calculate the r^2 from the circle (limit of the circle)
 		int cir3 = (x - c3.getX())*(x - c3.getX()) + (y - c3.getY())*(y - c3.getY());  // calculate of the center to the coordinates 		
@@ -234,7 +266,7 @@ public class Individual implements Comparable<Object>{
 				return true;
 		else
 				return false;
-	}*/
+	}
 	
 	Boolean containsR2(int x, int y) {
 		
@@ -247,7 +279,7 @@ public class Individual implements Comparable<Object>{
 		else
 			return false;
 	}
-	/*Boolean containsR4(int x, int y) {
+	Boolean containsR4(int x, int y) {
 		
 		int rad4 = c4.getRadius()*c4.getRadius();									   // calculate the r^2 from the circle (limit of the circle)
 		int cir4 = (x - c4.getX())*(x - c4.getX()) + (y - c4.getY())*(y - c4.getY());  // calculate of the center to the coordinates 		
@@ -264,7 +296,7 @@ public class Individual implements Comparable<Object>{
 				return true;
 		else
 				return false;
-	}*/
+	}
 	
 	void draw(Image img ) {
 		
@@ -273,10 +305,10 @@ public class Individual implements Comparable<Object>{
 		
 		for(int i = 0 ; i < h-1; i++) {
 			for(int j = 0 ; j < w-1 ; j++) {
-				if(this.containsR2(j,i))
-					img.setPixel(j,i,ORANGE);
-				if(this.containsL1(j,i))
-					img.setPixel(j,i,RED);
+				if(this.LeftRing(j,i))
+					img.setPixel(j,i,new Color(255,0,255));
+				if(this.RigthRing(j,i))
+					img.setPixel(j,i,BLUE);
 				
 			}
 		}
