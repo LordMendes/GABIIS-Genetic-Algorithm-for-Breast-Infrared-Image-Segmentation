@@ -22,6 +22,7 @@ public class MinhaThread extends Thread{
 		
 		a = new GA();
 		a.initPop(img);
+		System.out.println("Entrou - "+this.threadID);
 		a.run(this.img);
 		doneSignal.countDown();
 		System.out.println("id : "+this.threadID);

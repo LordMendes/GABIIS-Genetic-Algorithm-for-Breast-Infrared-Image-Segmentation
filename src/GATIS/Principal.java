@@ -13,12 +13,13 @@ public class Principal {
 	
 	public static void main(String[] args) throws Exception {
 		ArrayList<Individual> top = new ArrayList<Individual>();
+		
 		GA a = new GA();
-		Image img = new Image("C:/Users/Lucas C Mendes/Documents/JAVA/GATIS/src/GATIS/img5.jpg");
+		Image img = new Image("C:/Users/Lucas C Mendes/Documents/JAVA/GATIS/src/GATIS/img2.jpg");
 		CountDownLatch latch = new CountDownLatch(n);
 		
 		ArrayList<MinhaThread> lista = new ArrayList<MinhaThread>();
-		
+		long inicio = System.currentTimeMillis();
 		for(int i = 0 ; i < n ; i++) {
 			lista.add(new MinhaThread(img,i,latch));
 			lista.get(i).start();			
@@ -33,8 +34,13 @@ public class Principal {
 		}
 		a.initPop(top);
 		a.run(img);
+		long tempoFinal = System.currentTimeMillis();
+		System.out.println("GA tops");
 		top.get(a.POP-1).draw(img);
-		img.exportImage("C:/Users/Lucas C Mendes/Documents/JAVA/GATIS/src/GATIS/resultado.jpg", "jpg");
+		img.exportImage("C:/Users/Lucas C Mendes/Documents/JAVA/GATIS/src/GATIS/Parallel-2.jpg", "jpg");
+		top.clear();
+		System.out.println("Tempo : "+(double)(tempoFinal-inicio));
+		
 	}
 
 }

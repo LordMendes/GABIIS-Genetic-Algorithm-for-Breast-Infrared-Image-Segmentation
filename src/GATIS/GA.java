@@ -18,9 +18,9 @@ public class GA {
 	
 	//ATTRIBUTES
 	Random r = new Random();
-	static String imagem = "img2";   //NOME DA IMAGEM QUE O GA RODARÁ
+	static String imagem = "img1";   //NOME DA IMAGEM QUE O GA RODARÁ
 	
-	static ArrayList<Individual> pop = new ArrayList<Individual>();
+	ArrayList<Individual> pop = new ArrayList<Individual>();
 	
 	Individual getIndividual(int pos) {
 		return pop.get(pos);
@@ -316,7 +316,7 @@ public class GA {
 		long ini = System.currentTimeMillis();
 		
 		for(int i = 0 ; i < gat ; i++) {
-			Image img = new Image("C:/Users/Lucas C Mendes/Documents/JAVA/GATIS/src/GATIS/"+imagem+".jpg");
+			Image img = new Image("C:/Users/Lucas C Mendes/Documents/JAVA/GATIS/src/GATIS/img2.jpg");
 			img.convertToRGB();
 			
 			long tempoInicio = System.currentTimeMillis();
@@ -324,22 +324,22 @@ public class GA {
 			a.run(img);
 			long tempoFinal = System.currentTimeMillis();
 			
-			pop.get(POP-1).draw(img);
-			img.exportImage("C:/Users/Lucas C Mendes/Documents/JAVA/GATIS/src/GATIS/resultado"+i+".jpg", "jpg");
+			a.pop.get(POP-1).draw(img);
+			img.exportImage("C:/Users/Lucas C Mendes/Documents/JAVA/GATIS/src/GATIS/resultado2.jpg", "jpg");
 
 			
-			for(int j = 0 ; j < pop.size() ; j++) {
-				media+=pop.get(j).getScore();
+			for(int j = 0 ; j < a.pop.size() ; j++) {
+				media+=a.pop.get(j).getScore();
 			}					
-			mediana+=(pop.get(pop.size()/2).getScore());
-			min+=pop.get(0).getScore();
-			max+=pop.get(POP-1).getScore();
+			mediana+=(a.pop.get(a.pop.size()/2).getScore());
+			min+=a.pop.get(0).getScore();
+			max+=a.pop.get(POP-1).getScore();
 			time+=(double)(tempoFinal-tempoInicio);						
 			System.out.println("Ga "+i+" realizado");
 		}
 		long fim = System.currentTimeMillis();
 		System.out.println("\nTempo médio : "+time/(1000*gat) + "s");
-		System.out.println("Media : "+media/(pop.size()*gat)+" Mediana : "+mediana/gat+" Min : "+min/gat+" Max : "+max/gat+"\n");
+		System.out.println("Media : "+media/(a.pop.size()*gat)+" Mediana : "+mediana/gat+" Min : "+min/gat+" Max : "+max/gat+"\n");
 		
 		System.out.println("Tempo Total: "+(fim-ini) + "s");
 		
